@@ -85,7 +85,7 @@
             method: "POST"})
               .then(response => response.json())
               .then(data => {
-                //console.log(data)
+                console.log(data)
                 fetch('https://digital-test.afrilandfirstbank.com/access/villes', {
                 method: "GET",
                 headers : {
@@ -96,7 +96,7 @@
                 }})
                 .then(response => response.json())
                 .then(data => {
-                //console.log(data)
+                console.log(data)
                 const select = document.getElementById('mon-select');
                 for (let i = 0; i < data.length; i++) {
                   const option = document.createElement('option');
