@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+            rel="stylesheet" />
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #de4a4a;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #de4a4a;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button[type="submit"]:hover {
+            background-color: #de4a4a;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding-top: 10px;
+        }
+        .footer img {
+            height: 30px;
+        }
+    </style>
+    </head>
+    <body>
+        <form>
+            <h2>VILLE DU SINISTRE</h2>
+            <label>Veuillez Sélectionner La Ville Du Sinistre</label><br/><br/>
+                    <select id="mon-select" class="select2">
+                    </select><br/><br/>
+                            <button type="submit" onclick="sendWhatsApp()">Continuez
+                                Sur WhatsApp</button>
+                        </form>
+                        <div class="footer">
+                            <img
+                                src="https://media.licdn.com/dms/image/C4E0BAQFk1DzsGTTL4g/company-logo_200_200/0/1537276566487?e=2147483647&v=beta&t=lrbzBp2jgoGXfLhEqrTZd4ofiRBMEQccX4CFqclHnz8"
+                                alt="Logo">
+                            <p>SAAR ASSURANCES, Un Réservoir De Sécurité</p>
+                        </div>
+                        <script
+                            src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script
+                            src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+                        <script>
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
+        </script>
+                        <script>
+            fetch('https://digital-test.afrilandfirstbank.com/access/login?login=WA_ASSURANCE&password=0000', {
+            method: "POST"})
+              .then(response => response.json())
+              .then(data => {
+                //console.log(data)
+                fetch('https://digital-test.afrilandfirstbank.com/access/villes', {
+                method: "GET",
+                headers : {
+                    'Authorization': `Bearer ${data.access_token}`
+                }})
+                .then(response => response.json())
+                .then(data => {
+                //console.log(data)
+                const select = document.getElementById('mon-select');
+                for (let i = 0; i < data.length; i++) {
+                  const option = document.createElement('option');
+                  option.value = data[i].code;
+                  option.text = data[i].intitule;
+                  select.appendChild(option);
+                } 
+              });
+              });
+        </script>
+        <script>
+            function sendWhatsApp() {
+                var select = document.getElementById("mon-select");
+                var selectedValue = select.options[select.selectedIndex].value;
+
+                var url = `https://wa.me/237677277800?text=${encodeURIComponent(selectedValue)}`;
+                window.open(url);
+            }
+        </script>
+    </body>
+</html>
