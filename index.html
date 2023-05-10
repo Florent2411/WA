@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login Page</title>
+        <title>WHATSAPP ASSURANCE</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
         <link
             href="select2.min.css"
@@ -89,7 +89,10 @@
                 fetch('https://digital-test.afrilandfirstbank.com/access/villes', {
                 method: "GET",
                 headers : {
-                    'Authorization': `Bearer ${data.access_token}`
+                    'Authorization': `Bearer ${data.access_token}`,
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods':'*',
+                    'Access-Control-Allow-Headers':'*',
                 }})
                 .then(response => response.json())
                 .then(data => {
